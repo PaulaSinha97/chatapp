@@ -1,0 +1,70 @@
+.messages {
+  border: 2px solid brown;
+  // 60 height + 10 + 10 margin
+  height: calc(100% - 76px);
+}
+.inputMsg {
+  background-color: white;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 2px solid red;
+  display: flex;
+
+  // flex-direction: row;
+  gap: 2px;
+  input {
+    // flex-grow: 2px;
+    flex: 2;
+    height: 33px;
+    // border-radius: 2px;
+    // border: 0px;
+  }
+  .send {
+    align-self: center;
+  }
+  .sendButton {
+    cursor: pointer;
+    // padding: 10px;
+    color: white;
+    background-color: #695bd7;
+  }
+}
+
+.chat {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  .messageInfo {
+    display: flex;
+    flex-direction: column;
+    color: grey;
+    font-weight: 300;
+    .avatar {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .messageContent {
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    p {
+      background-color: white;
+      padding: 10px 20px;
+      border-radius: 0px 10px 10px 10px;
+    }
+  }
+
+  &.ownerChat {
+    flex-direction: row-reverse;
+    p {
+      background-color: black;
+      padding: 10px 20px;
+      border-radius: 0px 10px 10px 10px;
+      color: white;
+    }
+  }
+}

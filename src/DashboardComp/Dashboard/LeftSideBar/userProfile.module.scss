@@ -1,0 +1,57 @@
+.logo {
+  display: flex;
+  gap: 30px;
+
+  .chat {
+    align-self: center;
+    font-weight: bold;
+  }
+}
+
+.userProfileBox {
+  border: 2px solid rgb(132, 168, 177);
+  //   height: 100;
+  // width: 230px;
+  // margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.14);
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  //   margin: 20px;
+  // margin-right: 22px;
+  .profile {
+    border-radius: 50px;
+  }
+}
+
+.activeConvo {
+  // display: flex;
+  // flex-direction: column;
+  // max-width: auto;
+  width: 100%;
+  // why not working with width auto
+  // outline: none;
+
+  img {
+    border-radius: 50px;
+  }
+
+  .selectedChat {
+    display: flex;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px solid red;
+    gap: 10px;
+    &:hover {
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.14);
+      width: auto;
+    }
+    div {
+      align-self: center;
+      //color: blue;
+      //font-size: medium;
+      // align-items: center;
+    }
+  }
+}
