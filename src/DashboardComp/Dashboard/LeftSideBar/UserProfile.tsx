@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 // import Image from "next/image";
 import Chat from "../../../../Images/Chat.jpg";
-// import Profile from "../../../../Images/Profile.jpg";
+import Profile from "../../../../Images/Profile.jpg";
 import userStyles from "./userProfile.module.scss";
 // import { AuthContext } from "../../context/AuthContext";
 
@@ -11,6 +11,7 @@ export const UserProfile = () => {
   return (
     <>
       <div className={userStyles.logo}>
+        
         {/* <Image src={Chat} alt="chatPic" height="40px" width="40px" /> */}
         <span className={userStyles.chat}> QuickChat</span>
       </div>
