@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3001',{
+  transports: ['websocket'], // Optional, forces WebSocket
+});
 
 export const Chat = () => {
   const [messages, setMessages] = useState<any>([]);
@@ -11,23 +13,44 @@ export const Chat = () => {
 
   useEffect(() => {
     // Load existing messages
-    axios.get('http://localhost:3000/chat').then((res:any) => {
+    axios.get('http://localhost:3001/chat').then((res:any) => {
       setMessages(res.data);
     });
-
+  
     // Listen for real-time messages
     socket.on('newMessage', (msg:any) => {
       setMessages((prev:any) => [...prev, msg]);
     });
+
+
 
     return () => {
       socket.off('newMessage');
     };
   }, []);
 
+  useEffect(() => {
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+}, []);
+
+
+  useEffect(() => {
+  if (socket) {
+    socket.emit('join_room','Pullar');
+  }
+}, [socket]);
+
+// socket.addEventListener('open', function (event) {
+//     console.log('connected');
+// });
+
+
   const sendMessage = () => {
     if (!input) return;
     socket.emit('sendMessage', {
+      roomId: 'Pullar',
       username,
       message: input,
     });
