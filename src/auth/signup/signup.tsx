@@ -22,7 +22,7 @@ function Signup(props:any) {
 
     function loginUser() {
         if(cred.email && cred.password){
-          fetch('http://localhost:3000/auth/signup', {
+          fetch('http://localhost:3001/auth/signup', {
               method: 'POST',
               body: JSON.stringify({email:cred.email,password : cred.password,name : cred.name}),
               headers: {
@@ -61,7 +61,7 @@ function Signup(props:any) {
               </div>
 
               <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Sign, into your account</h5>
-                <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg" onBlur={(e:any)=>{setCred({...cred, name:e.target.value})}}/>
+                <MDBInput wrapperClass='mb-4' label='Name' id='formControlLg' type='name' size="lg" onBlur={(e:any)=>{setCred({...cred, name:e.target.value})}}/>
                 <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg" onBlur={(e:any)=>{setCred({...cred, email:e.target.value})}}/>
                 <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"  onBlur={(e:any)=>{setCred({...cred, password:e.target.value})}}/>
 
