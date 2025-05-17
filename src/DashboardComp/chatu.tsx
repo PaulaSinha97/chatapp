@@ -9,32 +9,26 @@ const socket = io('http://localhost:3001',{
 export const Chat = () => {
   const [messages, setMessages] = useState<any>([]);
   const [input, setInput] = useState('');
-  const [username, setUsername] = useState('User' + Math.floor(Math.random() * 1000));
+  const [userData,setUserData] = useState({name:''});
 
   useEffect(() => {
     // Load existing messages
     axios.get('http://localhost:3001/chat').then((res:any) => {
-      setMessages(res.data);
+     res?.data?.length ?  setMessages(res.data?.[0]?.messages) : setMessages([]);
     });
-  
     // Listen for real-time messages
     socket.on('newMessage', (msg:any) => {
-      setMessages((prev:any) => [...prev, msg]);
+      setMessages((prev:any) => [...prev, msg.messages[(msg?.messages?.length)-1]]);
     });
 
-
-
+    const userId = sessionStorage.getItem("id")
+    axios.get(`http://localhost:3001/users/${userId}`).then((res:any) => {
+      setUserData(res.data);
+    });
     return () => {
       socket.off('newMessage');
     };
   }, []);
-
-  useEffect(() => {
-  socket.on('connect', () => {
-    console.log('Connected to server');
-  });
-}, []);
-
 
   useEffect(() => {
   if (socket) {
@@ -50,8 +44,8 @@ export const Chat = () => {
   const sendMessage = () => {
     if (!input) return;
     socket.emit('sendMessage', {
-      roomId: 'Pullar',
-      username,
+      roomId: 'Tushar',
+      username: userData?.name,
       message: input,
     });
     setInput('');
