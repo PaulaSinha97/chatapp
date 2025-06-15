@@ -22,7 +22,7 @@ function Login(props:any) {
 
     function loginUser() {
         if(cred.email && cred.password){
-          fetch('http://localhost:3000/auth/login', {
+          fetch('http://localhost:3001/auth/login', {
               method: 'POST',
               body: JSON.stringify({email:cred.email,password : cred.password}),
               headers: {
@@ -35,6 +35,7 @@ function Login(props:any) {
             .then(response => response.json())
             .then(data =>{
    if(data){
+      localStorage.setItem("token", data.token)
       navigate('/home');
       // navigate('//contact', { replace: true }); // replace the current history entry
    }

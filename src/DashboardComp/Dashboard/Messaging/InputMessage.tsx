@@ -3,7 +3,10 @@ import React, { useContext, useState } from "react";
 import messagesStyle from "./messages.module.scss";
 // import Image from "next/image";
 import Attach from "../../../../Images/Attach.png";
-
+import clsx from "clsx";
+import { io } from 'socket.io-client';
+import axios from 'axios';
+const socket = io('http://localhost:3001');
 // import { AuthContext } from "../../../app/context/AuthContext";
 // import { ChatContext } from "../../../app/context/ChatContext";
 // import {
@@ -20,9 +23,20 @@ import Attach from "../../../../Images/Attach.png";
 export const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
+  const [input, setInput] = useState('');
+  const [username, setUsername] = useState('User' + Math.floor(Math.random() * 1000));
 
   // const { currentUser } = useContext(AuthContext);
   // const { data } = useContext(ChatContext) || {};
+
+    const sendMessage = () => {
+    if (!input) return;
+    socket.emit('sendMessage', {
+      username,
+      message: input,
+    });
+    setInput('');
+  };
 
   const handleSend = async () => {
     if (img) {
@@ -73,8 +87,8 @@ export const Input = () => {
     //   [data.chatId + ".date"]: serverTimestamp(),
     // });
 
-    setText("");
-    setImg(null);
+    // setText("");
+    // setImg(null);
   };
   return (
     <div className={messagesStyle.inputMsg}>
@@ -92,10 +106,12 @@ export const Input = () => {
       <input
         type="text"
         placeholder="Enter your message here"
-        onChange={(e) => setText(e.target.value)}
-        value={text}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        // onKeyDown=÷÷{(e) => e.key === 'Enter'}
+        style={{ width: '80%', marginTop: 10 }}
       />
-      <button className={messagesStyle.sendButton} onClick={handleSend}>
+      <button className={messagesStyle.sendButton} onClick={sendMessage}>
         Send
       </button>
     </div>

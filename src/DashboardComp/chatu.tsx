@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3001');
 
 export const Chat = () => {
   const [messages, setMessages] = useState<any>([]);
@@ -11,8 +11,8 @@ export const Chat = () => {
 
   useEffect(() => {
     // Load existing messages
-    axios.get('http://localhost:3000/chat').then((res:any) => {
-      setMessages(res.data);
+    axios.get('http://localhost:3001/chat').then((res:any) => {
+      setMessages(res.data?.[0]?.messages);
     });
 
     // Listen for real-time messages
@@ -38,7 +38,7 @@ export const Chat = () => {
     <div style={{ padding: 20 }}>
       <h2>Chat App (Real-Time)</h2>
       <div style={{ maxHeight: '300px', overflowY: 'auto', border: '1px solid gray', padding: 10 }}>
-        {messages.map((msg:any, idx:any) => (
+        {messages?.map((msg:any, idx:any) => (
           <div key={idx}><strong>{msg.username}:</strong> {msg.message}</div>
         ))}
       </div>

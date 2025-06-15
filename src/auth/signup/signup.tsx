@@ -22,7 +22,7 @@ function Signup(props:any) {
 
     function loginUser() {
         if(cred.email && cred.password){
-          fetch('http://localhost:3000/auth/signup', {
+          fetch('http://localhost:3001/auth/signup', {
               method: 'POST',
               body: JSON.stringify({email:cred.email,password : cred.password,name : cred.name}),
               headers: {
