@@ -7,7 +7,7 @@ const socket = io("http://localhost:3001", {
     polling: {
       extraHeaders: {
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGYyOWRhMmNkZjMxZDMyZTJmNzhhMyIsImlhdCI6MTc1MDAxODUyMiwiZXhwIjoxNzUwMDIyMTIyfQ.sPydXYZm0VzmK8OcISQFL5ZhdXUoiheYPF6p9xs1Ups", // 'Bearer h93t4293t49jt34j9rferek...'
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTZiYWQ3Y2E1NzNiMDMwYWFkOThiZCIsImlhdCI6MTc1MDUyNDQ1OCwiZXhwIjoxNzUwNTI4MDU4fQ.dkNrmSGJNMswD81oJ_8pjRIRTJmY0CbzLFzYw_6dyvo", // 'Bearer h93t4293t49jt34j9rferek...'
       },
     },
   },
@@ -39,8 +39,9 @@ export const Chat = () => {
   const sendMessage = () => {
     if (!input) return;
     socket.emit("sendMessage", {
-      receiverId: "123",
+      senderId: "123",
       message: input,
+      roomId: "edbe8cfa-1114-4046-a6fb-3147847bc87f",
     });
     setInput("");
   };
