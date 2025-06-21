@@ -4,9 +4,9 @@ import messagesStyle from "./messages.module.scss";
 // import Image from "next/image";
 import Attach from "../../../../Images/Attach.png";
 import clsx from "clsx";
-import { io } from 'socket.io-client';
-import axios from 'axios';
-const socket = io('http://localhost:3001');
+import { io } from "socket.io-client";
+import axios from "axios";
+// const socket = io('http://localhost:3001');
 // import { AuthContext } from "../../../app/context/AuthContext";
 // import { ChatContext } from "../../../app/context/ChatContext";
 // import {
@@ -20,30 +20,42 @@ const socket = io('http://localhost:3001');
 // import { v4 as uuid } from "uuid";
 // import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
+const socket = io("http://localhost:3001", {
+  transportOptions: {
+    polling: {
+      extraHeaders: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTZiYWQ3Y2E1NzNiMDMwYWFkOThiZCIsImlhdCI6MTc1MDUzMjY3NSwiZXhwIjoxNzUwNTM2Mjc1fQ.leLbpZFgwzBCiouCqJGTNgy5qvlDfs2f8tWcq5HIICk", // 'Bearer h93t4293t49jt34j9rferek...'
+      },
+    },
+  },
+});
+
 export const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
-  const [input, setInput] = useState('');
-  const [username, setUsername] = useState('User' + Math.floor(Math.random() * 1000));
+  const [input, setInput] = useState("");
+  const [username, setUsername] = useState(
+    "User" + Math.floor(Math.random() * 1000)
+  );
 
   // const { currentUser } = useContext(AuthContext);
   // const { data } = useContext(ChatContext) || {};
 
-    const sendMessage = () => {
+  const sendMessage = () => {
     if (!input) return;
-    socket.emit('sendMessage', {
-      username,
+    socket.emit("sendMessage", {
+      senderId: "123",
       message: input,
+      roomId: "edbe8cfa-1114-4046-a6fb-3147847bc87f",
     });
-    setInput('');
+    setInput("");
   };
 
   const handleSend = async () => {
     if (img) {
       // const storageRef = ref(storage, uuid());
-
       // const uploadTask = uploadBytesResumable(storageRef, img);
-
       // uploadTask.on(
       //   (error) => {
       //     //TODO:Handle Error
@@ -109,7 +121,7 @@ export const Input = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         // onKeyDown=÷÷{(e) => e.key === 'Enter'}
-        style={{ width: '80%', marginTop: 10 }}
+        style={{ width: "80%", marginTop: 10 }}
       />
       <button className={messagesStyle.sendButton} onClick={sendMessage}>
         Send

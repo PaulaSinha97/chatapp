@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import messagesStyle from "./messages.module.scss";
 // import Image from "next/image";
 import Profile from "../../../../Images/Profile.jpg";
 import clsx from "clsx";
-import { io } from 'socket.io-client';
-import axios from 'axios';
-const socket = io('http://localhost:3001');
+import { io } from "socket.io-client";
+import axios from "axios";
+// const socket = io('http://localhost:3001');
 
 // import { ChatContext } from "../../context/ChatContext";
 // import { AuthContext } from "../../context/AuthContext";
 
-export const Chat: React.FC<{msg:any}> = ({msg}) => {
-  console.log("msgmsg",msg)
+export const Chat: React.FC<{ msg: any }> = ({ msg }) => {
+  console.log("msgmsg", msg);
   // const { currentUser } = useContext(AuthContext);
   // const { data } = useContext(ChatContext) || {};
   // const ownerMsg =
@@ -52,8 +52,8 @@ export const Chat: React.FC<{msg:any}> = ({msg}) => {
         <span>Just now</span>
       </div>
       <div className={messagesStyle.messageContent}>
-       <p>{msg}</p> 
-         {/* <p>{message.text}</p> */}
+        <p>{msg}</p>
+        {/* <p>{message.text}</p> */}
         {/* <p>{message.text}</p>
         {message.img && <img src={message.img} alt="" />} */}
       </div>
