@@ -5,7 +5,6 @@ import messagesStyle from "./messages.module.scss";
 import Attach from "../../../../Images/Attach.png";
 import clsx from "clsx";
 import { io } from "socket.io-client";
-import axios from "axios";
 // const socket = io('http://localhost:3001');
 // import { AuthContext } from "../../../app/context/AuthContext";
 // import { ChatContext } from "../../../app/context/ChatContext";
@@ -20,17 +19,6 @@ import axios from "axios";
 // import { v4 as uuid } from "uuid";
 // import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
-const socket = io("http://localhost:3001", {
-  transportOptions: {
-    polling: {
-      extraHeaders: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTZiYWQ3Y2E1NzNiMDMwYWFkOThiZCIsImlhdCI6MTc1MDUzMjY3NSwiZXhwIjoxNzUwNTM2Mjc1fQ.leLbpZFgwzBCiouCqJGTNgy5qvlDfs2f8tWcq5HIICk", // 'Bearer h93t4293t49jt34j9rferek...'
-      },
-    },
-  },
-});
-
 export const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
@@ -39,8 +27,15 @@ export const Input = () => {
     "User" + Math.floor(Math.random() * 1000)
   );
 
-  // const { currentUser } = useContext(AuthContext);
-  // const { data } = useContext(ChatContext) || {};
+  const socket = io("http://localhost:3001", {
+    transportOptions: {
+      polling: {
+        extraHeaders: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`, // 'Bearer h93t4293t49jt34j9rferek...'
+        },
+      },
+    },
+  });
 
   const sendMessage = () => {
     if (!input) return;

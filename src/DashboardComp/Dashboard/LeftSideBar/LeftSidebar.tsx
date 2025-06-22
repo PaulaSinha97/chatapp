@@ -6,18 +6,6 @@ import Search from "./Search";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRequest } from "../../../redux/actions/userAction";
 import { RootState } from "../../../redux/store";
-// import { io } from "socket.io-client";
-
-// const socket = io("http://localhost:3001", {
-//   transportOptions: {
-//     polling: {
-//       extraHeaders: {
-//         Authorization:
-//           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTZiYWQ3Y2E1NzNiMDMwYWFkOThiZCIsImlhdCI6MTc1MDUzMjY3NSwiZXhwIjoxNzUwNTM2Mjc1fQ.leLbpZFgwzBCiouCqJGTNgy5qvlDfs2f8tWcq5HIICk", // 'Bearer h93t4293t49jt34j9rferek...'
-//       },
-//     },
-//   },
-// });
 
 export const LeftSidebar = () => {
   const [currUser, setCurrUser] = useState("");

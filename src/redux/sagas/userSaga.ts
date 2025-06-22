@@ -10,14 +10,13 @@ export interface UserResponse {
   password: string;
 }
 
-function fetchApi() {
+function fetchUserApi(token: string) {
   return fetch("http://localhost:3001/users", {
     method: "GET",
     headers: {
       Accept: "application/json,",
       "Content-Type": "application/json; charset=UTF-8",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTZiYWQ3Y2E1NzNiMDMwYWFkOThiZCIsImlhdCI6MTc1MDUzMjY3NSwiZXhwIjoxNzUwNTM2Mjc1fQ.leLbpZFgwzBCiouCqJGTNgy5qvlDfs2f8tWcq5HIICk",
+      Authorization: `Bearer ${token}`,
       // 'Content-Length': Buffer.byteLength(data),
       // 'Cookie': cookies,
     },
@@ -26,7 +25,8 @@ function fetchApi() {
 
 function* fetchSaga() {
   try {
-    const data: UserResponse = yield call(fetchApi);
+    const token = sessionStorage.getItem("token") || "";
+    const data: UserResponse = yield call(fetchUserApi, token);
     yield put(fetchSuccess(data));
   } catch (error: any) {
     yield put(fetchFailure(error));
