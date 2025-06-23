@@ -4,32 +4,48 @@ import { ActiveConversations } from "./ActiveConversations";
 // import { Box } from "@material-ui/core";
 import Search from "./Search";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRequest } from "../../../redux/actions/userAction";
+import { fetchRequest, UserResponse } from "../../../redux/actions/userAction";
 import { RootState } from "../../../redux/store";
+import { fetchFriendRequest } from "../../../redux/actions/friendsAction";
 
 export const LeftSidebar = () => {
   const [currUser, setCurrUser] = useState("");
   const [userName, setUserName] = useState([]);
+  const [friends, setFriends] = useState<{
+    active: UserResponse[];
+    new: UserResponse[];
+  }>({ active: [], new: [] });
 
   const dispatch = useDispatch();
-  const { loading, data, error } = useSelector(
-    (state: RootState) => state.userData
+
+  const { data: friendsList } = useSelector(
+    (state: RootState) => state.friendsData
   );
 
-  console.log("data", data, loading, error);
+  console.log("friendsList", friendsList);
+  const {
+    loading,
+    data: currUserData,
+    error,
+  } = useSelector((state: RootState) => state.userData);
+
+  console.log("data", currUserData, loading, error);
   React.useEffect(() => {
-    getUserList();
+    dispatch(fetchFriendRequest());
+    dispatch(fetchRequest());
   }, []);
 
   React.useEffect(() => {
-    if (data.name) {
-      setCurrUser(data.name);
+    if (currUserData.name) {
+      setCurrUser(currUserData.name);
     }
-  }, [data]);
+  }, [currUserData]);
 
-  function getUserList() {
-    dispatch(fetchRequest());
-  }
+  React.useEffect(() => {
+    if (friendsList) {
+      setFriends({ new: friendsList, active: [] });
+    }
+  }, [friendsList]);
 
   function findRoomAndOpenChat(item: any) {
     //  const getRoomByService();
@@ -70,9 +86,14 @@ export const LeftSidebar = () => {
           );
         })}
       </div>
-
-      {/* <ActiveConversations heading="Active conversation" />
-      <ActiveConversations heading="Archived conversation" /> */}
+      <ActiveConversations
+        heading="Active conversation"
+        friends={friends.active}
+      />
+      <ActiveConversations
+        heading="Chat with new people"
+        friends={friends.new}
+      />
     </>
   );
 };

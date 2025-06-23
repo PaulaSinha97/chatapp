@@ -2,8 +2,8 @@ import {
   FETCH_DATA_FAILURE,
   FETCH_DATA_REQUEST,
   FETCH_DATA_SUCCESS,
+  UserResponse,
 } from "../actions/userAction";
-import { UserResponse } from "../sagas/userSaga";
 
 interface FetchState {
   loading: boolean;

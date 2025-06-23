@@ -1,6 +1,7 @@
 import { fork } from "redux-saga/effects";
 import { watchFetchSaga } from "./userSaga";
 import { watchLoginSaga } from "./loginSaga";
+import { watchFriendsFetchSaga } from "./friendsSaga";
 
 // const sagaMiddleware = createSagaMiddleware();
 
@@ -19,4 +20,5 @@ import { watchLoginSaga } from "./loginSaga";
 export function* root() {
   yield fork(watchFetchSaga);
   yield fork(watchLoginSaga);
+  yield fork(watchFriendsFetchSaga);
 }

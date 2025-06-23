@@ -3,12 +3,8 @@ import {
   fetchSuccess,
   fetchFailure,
   FETCH_DATA_REQUEST,
+  UserResponse,
 } from "../actions/userAction";
-export interface UserResponse {
-  name: string;
-  email: string;
-  password: string;
-}
 
 function fetchUserApi(token: string) {
   return fetch("http://localhost:3001/users", {

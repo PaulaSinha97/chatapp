@@ -8,16 +8,26 @@ import React, { useContext, useEffect, useState } from "react";
 // import Person from "../../../../Images/Person.jpg";
 import activeConvoStyle from "./userProfile.module.scss";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-// import { KeyboardArrowDown } from "@material-ui/icons";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchAllYourFriends } from "../../../redux/reducers/friendsSliceReducer";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { fetchFriendRequest } from "../../../redux/actions/friendsAction";
+import { UserResponse } from "../../../redux/actions/userAction";
+// import { KeyboardArrowDown } from "@mui/material/Icon/Icon";
 // import { db } from "../../../../firebase";
 // import { AuthContext } from "../../context/AuthContext";
 // import { ChatContext } from "../../context/ChatContext";
 // import { doc } from "firebase/firestore";
 
-export const ActiveConversations: React.FC<{ heading: string }> = ({
-  heading,
-}) => {
+export const ActiveConversations: React.FC<{
+  heading: string;
+  friends: UserResponse[];
+}> = ({ heading, friends }) => {
   const [chats, setChats] = useState([]);
+
+  // const {}=useSelector((state)=>)
 
   // const { currentUser } = useContext(AuthContext);
   // const { dispatch } = useContext(ChatContext);
@@ -41,13 +51,12 @@ export const ActiveConversations: React.FC<{ heading: string }> = ({
   // console.log("baharś", chats, currentUser.uid);
 
   // const handleSelect = (u) => {
-    // dispatch({ type: "CHANGE_USER", payload: u });
+  // dispatch({ type: "CHANGE_USER", payload: u });
   // };
-
   return (
     <Accordion>
       <AccordionSummary
-        // expandIcon={<KeyboardArrowDown />}
+        expandIcon={<KeyboardArrowDownIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
@@ -55,11 +64,11 @@ export const ActiveConversations: React.FC<{ heading: string }> = ({
       </AccordionSummary>
       <AccordionDetails>
         <div className={activeConvoStyle.activeConvo}>
-          {Object.values(chats).map((chat) => (
+          {friends.map(({ name }) => (
             // eslint-disable-next-line react/jsx-key
             <div
               className={activeConvoStyle.selectedChat}
-              key={chat[0]}
+              key={name}
               // onClick={() => handleSelect(chat[1].userInfo)}
             >
               {/* <Image
@@ -68,8 +77,8 @@ export const ActiveConversations: React.FC<{ heading: string }> = ({
                 height="60px"
                 width="60px"
               /> */}
-              {/* <div>{chat[1].userInfo.displayName}</div>
-              <p>{chat[1].lastMessage?.text}</p> */}
+              {/* <div>{chat[1].userInfo.displayName}</div> */}
+              <p>{name}</p>
             </div>
           ))}
         </div>
