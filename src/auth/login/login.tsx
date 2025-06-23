@@ -27,7 +27,7 @@ function Login(props: any) {
   useEffect(() => {
     if (token) {
       sessionStorage.setItem("token", token);
-      navigate("/");
+      navigate("/dashboard");
     }
   }, [navigate, token]);
 
