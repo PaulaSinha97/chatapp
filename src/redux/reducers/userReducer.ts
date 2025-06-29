@@ -13,7 +13,7 @@ interface FetchState {
 
 const initialState: FetchState = {
   loading: false,
-  data: { name: "", email: "", password: "" },
+  data: { id: "", name: "", email: "", password: "" },
   error: null,
 };
 

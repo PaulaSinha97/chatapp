@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserProfile } from "./UserProfile";
 import { ActiveConversations } from "./ActiveConversations";
 // import { Box } from "@material-ui/core";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchRequest, UserResponse } from "../../../redux/actions/userAction";
 import { RootState } from "../../../redux/store";
 import { fetchFriendRequest } from "../../../redux/actions/friendsAction";
+import { UserContext } from "../../../context/userContext";
 
 export const LeftSidebar = () => {
   const [currUser, setCurrUser] = useState("");
@@ -21,25 +22,26 @@ export const LeftSidebar = () => {
   const { data: friendsList } = useSelector(
     (state: RootState) => state.friendsData
   );
+  const activeUser = useContext(UserContext);
 
   console.log("friendsList", friendsList);
-  const {
-    loading,
-    data: currUserData,
-    error,
-  } = useSelector((state: RootState) => state.userData);
+  // const {
+  //   loading,
+  //   data: currUserData,
+  //   error,
+  // } = useSelector((state: RootState) => state.userData);
 
-  console.log("data", currUserData, loading, error);
+  // console.log("data", currUserData, loading, error);
   React.useEffect(() => {
     dispatch(fetchFriendRequest());
     dispatch(fetchRequest());
   }, []);
 
   React.useEffect(() => {
-    if (currUserData.name) {
-      setCurrUser(currUserData.name);
+    if (activeUser?.name) {
+      setCurrUser(activeUser.name);
     }
-  }, [currUserData]);
+  }, [activeUser]);
 
   React.useEffect(() => {
     if (friendsList) {

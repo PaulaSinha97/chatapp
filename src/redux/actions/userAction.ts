@@ -3,6 +3,7 @@ export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
 export const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
 
 export interface UserResponse {
+  id: string;
   name: string;
   email: string;
   password: string;

@@ -25,12 +25,12 @@
 }
 
 .activeConvo {
-  // display: flex;
-  // flex-direction: column;
-  // max-width: auto;
+  display: flex;
+  flex-direction: column;
+  max-width: auto;
   width: 100%;
   // why not working with width auto
-  // outline: none;
+  outline: none;
 
   img {
     border-radius: 50px;
@@ -49,9 +49,9 @@
     }
     div {
       align-self: center;
-      //color: blue;
-      //font-size: medium;
-      // align-items: center;
+      color: blue;
+      font-size: medium;
+      align-items: center;
     }
   }
 }
